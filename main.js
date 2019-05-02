@@ -33,4 +33,22 @@ $(function () {
             form_g.find('.help-block').text('');
         }
     });
+
+    $('.valid-textarea').keyup(function () {
+        var form_g = $(this).closest('.form-group');
+        var comment_length = $(this).val().length;
+
+        form_g.find('.show-count-text').text(comment_length);
+
+        if (comment_length === 0) {
+            form_g.removeClass('has-success').addClass('has-error');
+            form_g.find('.help-block').text(MSG_EMPTY);
+        } else if (comment_length > 100) {
+            form_g.removeClass('has-success').addClass('has-error');
+            form_g.find('.help-block').text(MSG_COMMENT_MAX);
+        } else {
+            form_g.removeClass('has-error').addClass('has-success');
+            form_g.find('.help-block').text('');
+        }
+    })
 });
