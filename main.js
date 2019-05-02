@@ -6,8 +6,9 @@ $(function () {
 
     $('.valid-text').keyup(function () {
         var form_g = $(this).closest('.form-group');
+        var text_length = $(this).val().length;
 
-        if ($(this).val().length > 20) {
+        if (text_length > 20) {
             form_g.removeClass('has-success').addClass('has-error');
             form_g.find('.help-block').text(MSG_TEXT_MAX);
         } else {
@@ -16,4 +17,20 @@ $(function () {
         }
     });
 
+    $('.valid-email').keyup(function () {
+        var form_g = $(this).closest('.form-group');
+        var email_length = $(this).val().length;
+        var email_pattern = $(this).val().match(/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/);
+
+        if (email_length === 0) {
+            form_g.removeClass('has-success').addClass('has-error');
+            form_g.find('.help-block').text(MSG_EMPTY);
+        } else if (email_length > 50 || !email_pattern) {
+            form_g.removeClass('has-success').addClass('has-error');
+            form_g.find('.help-block').text(MSG_EMAIL_TYPE)
+        } else {
+            form_g.removeClass('has-error').addClass('has-success');
+            form_g.find('.help-block').text('');
+        }
+    });
 });
